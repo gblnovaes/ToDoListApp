@@ -10,13 +10,16 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.gabrielnovaes.todoapp.R
+import br.com.gabrielnovaes.todoapp.SharedViewModel
 import br.com.gabrielnovaes.todoapp.data.viewmodel.ToDoViewModel
+import kotlinx.android.synthetic.main.fragment_list.*
 import kotlinx.android.synthetic.main.fragment_list.view.*
 
 class ListFragment : Fragment() {
 
     private val adapter : ListAdapter by lazy { ListAdapter() }
     private val mToDoViewModel : ToDoViewModel by viewModels()
+    private val mSharedViewModel : SharedViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,7 +32,8 @@ class ListFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireActivity())
 
-        mToDoViewModel.getAllData.observe(viewLifecycleOwner, Observer { data ->
+        mToDoViewModel.getAllData.observe(viewLifecycleOwner, { data ->
+            mSharedViewModel.checkEmptyDatabaseEmpty(data)
             adapter.setData(data)
         })
 
@@ -37,10 +41,25 @@ class ListFragment : Fragment() {
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
         }
 
-
+        mSharedViewModel.emptyDatabaseEmpty.observe(viewLifecycleOwner, {
+            showEmptyDatabaseViews(it)
+        })
 
         setHasOptionsMenu(true)
         return view
+    }
+
+    private fun showEmptyDatabaseViews(emptyListItem : Boolean) {
+        when {
+            emptyListItem -> {
+                boxEmpty.visibility = View.VISIBLE
+                lblBoxEmpty.visibility = View.VISIBLE
+            }
+            else -> {
+                boxEmpty.visibility = View.INVISIBLE
+                lblBoxEmpty.visibility = View.INVISIBLE
+            }
+        }
     }
 
 

@@ -34,28 +34,33 @@
         app:srcCompat="@drawable/ic_add" />
 
     <ImageView
-        android:visibility="invisible"
-        android:id="@+id/imageView"
+        android:id="@+id/boxEmpty"
         android:layout_width="214dp"
         android:layout_height="229dp"
-        app:srcCompat="@drawable/ic_mono_software"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/recyclerView" />
+        app:layout_constraintTop_toTopOf="@+id/recyclerView"
+        app:srcCompat="@drawable/ic_mono_software" />
 
     <TextView
-        android:visibility="invisible"
-        android:id="@+id/textView"
+        android:id="@+id/lblBoxEmpty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:text="No have data"
         android:textSize="16sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/boxEmpty"
+        app:layout_constraintVertical_bias="0.074" />
 </androidx.constraintlayout.widget.ConstraintLayout>
