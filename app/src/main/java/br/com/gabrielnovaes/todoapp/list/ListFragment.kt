@@ -2,6 +2,8 @@ package br.com.gabrielnovaes.todoapp.list
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -44,6 +46,28 @@ class ListFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.list_fragment_menu,menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.menu_delete_all -> confirmDeleteAllItem()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun confirmDeleteAllItem() {
+        val builder = AlertDialog.Builder(requireContext())
+
+        builder.setPositiveButton("Yes"){_,_ ->
+            mToDoViewModel.deleteAllData()
+            Toast.makeText(context, "Successfully Removed Everything!!", Toast.LENGTH_SHORT).show()
+        }
+
+        builder.setNegativeButton("No"){_,_ -> }
+        builder.setTitle("Delete everything?")
+        builder.setMessage("Are you sure want to remove everything?")
+        builder.create().show()
+
     }
 
 }
