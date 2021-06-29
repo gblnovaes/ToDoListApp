@@ -12,4 +12,10 @@ interface ToDoDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertData(toDoData: ToDoData)
 
+
+    @Update(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun updateData(toDoData: ToDoData)
+
+    @Delete
+    suspend fun deleteData(toDoData: ToDoData)
 }
