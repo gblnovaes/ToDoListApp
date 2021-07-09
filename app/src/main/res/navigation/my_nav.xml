@@ -28,24 +28,25 @@
     <fragment
         android:id="@+id/addFragment"
         android:name="br.com.gabrielnovaes.todoapp.add.AddFragment"
-        android:label="Add  "
-        tools:layout="@layout/fragment_add">
+        android:label="Add  ">
         <action
             android:id="@+id/action_addFragment_to_listFragment"
             app:destination="@id/listFragment"
             app:enterAnim="@anim/from_left"
             app:exitAnim="@anim/to_rigth" />
     </fragment>
+
     <fragment
         android:id="@+id/updateFragment"
         android:name="br.com.gabrielnovaes.todoapp.update.UpdateFragment"
-        android:label="Update"
-        tools:layout="@layout/fragment_update">
+        android:label="Update">
         <action
             android:id="@+id/action_updateFragment_to_listFragment"
             app:destination="@id/listFragment"
             app:enterAnim="@anim/from_rigth"
-            app:exitAnim="@anim/to_left" />
+            app:exitAnim="@anim/to_left"
+            app:popUpTo="@id/listFragment"
+            app:popUpToInclusive="true" />
         <argument
             android:name="currentItem"
             app:argType="br.com.gabrielnovaes.todoapp.data.models.ToDoData" />

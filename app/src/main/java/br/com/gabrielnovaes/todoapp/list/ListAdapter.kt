@@ -5,36 +5,36 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import br.com.gabrielnovaes.todoapp.R
 import br.com.gabrielnovaes.todoapp.data.models.Priority
 import br.com.gabrielnovaes.todoapp.data.models.ToDoData
-import kotlinx.android.synthetic.main.row_layout.view.*
+import br.com.gabrielnovaes.todoapp.databinding.RowLayoutBinding
 
 class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
     private var dataList = emptyList<ToDoData>()
-
+    private lateinit var binding : RowLayoutBinding
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.row_layout, parent, false)
-        return MyViewHolder(view)
+          binding = RowLayoutBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        return MyViewHolder(binding.root)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.itemView.title_txt.text = dataList[position].title
-        holder.itemView.description_txt.text = dataList[position].description
-        holder.itemView.row_background.setOnClickListener{
+       binding.titleTxt.text = dataList[position].title
+        binding.descriptionTxt.text = dataList[position].description
+        binding.rowBackground.setOnClickListener{
             val action = ListFragmentDirections.actionListFragmentToUpdateFragment(dataList[position])
             holder.itemView.findNavController().navigate(action)
+
         }
 
 
         when (dataList[position].priority) {
             Priority.HIGH -> {
-                holder.itemView.priority_indicator.setCardBackgroundColor(
+                binding.priorityIndicator.setCardBackgroundColor(
                     ContextCompat.getColor(
                         holder.itemView.context,
                         R.color.red
@@ -42,7 +42,7 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
                 )
             }
             Priority.MEDIUM -> {
-                holder.itemView.priority_indicator.setCardBackgroundColor(
+                binding.priorityIndicator.setCardBackgroundColor(
                     ContextCompat.getColor(
                         holder.itemView.context,
                         R.color.yellow
@@ -50,7 +50,7 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
                 )
             }
             Priority.LOW -> {
-                holder.itemView.priority_indicator.setCardBackgroundColor(
+                binding.priorityIndicator.setCardBackgroundColor(
                     ContextCompat.getColor(
                         holder.itemView.context,
                         R.color.green

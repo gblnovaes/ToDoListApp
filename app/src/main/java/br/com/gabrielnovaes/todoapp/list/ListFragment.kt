@@ -4,18 +4,13 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.gabrielnovaes.todoapp.R
 import br.com.gabrielnovaes.todoapp.SharedViewModel
 import br.com.gabrielnovaes.todoapp.data.viewmodel.ToDoViewModel
 import br.com.gabrielnovaes.todoapp.databinding.FragmentListBinding
-import kotlinx.android.synthetic.main.fragment_list.*
-import kotlinx.android.synthetic.main.fragment_list.view.*
 
 class ListFragment : Fragment() {
 

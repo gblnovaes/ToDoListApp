@@ -1,8 +1,6 @@
 package br.com.gabrielnovaes.todoapp.add
 
 import android.os.Bundle
-import android.text.TextUtils
-import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -10,18 +8,17 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import br.com.gabrielnovaes.todoapp.R
 import br.com.gabrielnovaes.todoapp.SharedViewModel
-import br.com.gabrielnovaes.todoapp.data.models.Priority
 import br.com.gabrielnovaes.todoapp.data.models.ToDoData
 import br.com.gabrielnovaes.todoapp.data.viewmodel.ToDoViewModel
-import kotlinx.android.synthetic.main.fragment_add.*
-import kotlinx.android.synthetic.main.fragment_add.view.*
+import br.com.gabrielnovaes.todoapp.databinding.FragmentAddBinding
 
 
 class AddFragment : Fragment() {
 
     private val mToDoViewModel: ToDoViewModel by viewModels()
     private val mSharedViewModel: SharedViewModel by viewModels()
-
+    private var _binding : FragmentAddBinding? = null
+    private val binding get() = _binding!!
     init {
         setHasOptionsMenu(true)
     }
@@ -30,11 +27,9 @@ class AddFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_add, container, false)
-        view.priorities_spinner.onItemSelectedListener = mSharedViewModel.listener
-        return view
+        _binding = FragmentAddBinding.inflate(inflater,container,false)
+        binding.prioritiesSpinner.onItemSelectedListener = mSharedViewModel.listener
+        return binding.root
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -50,9 +45,9 @@ class AddFragment : Fragment() {
     }
 
     private fun insertDataToDb() {
-        val mTitle = title_et.text.toString()
-        val mPriority = priorities_spinner.selectedItem.toString()
-        val mDescription = description_et.text.toString()
+        val mTitle = binding.titleEt.text.toString()
+        val mPriority = binding.prioritiesSpinner.selectedItem.toString()
+        val mDescription = binding.descriptionEt.text.toString()
         val validation = mSharedViewModel.verifyDataFromUser(mTitle, mDescription)
 
         if (validation) {
